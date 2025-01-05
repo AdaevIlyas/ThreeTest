@@ -1,0 +1,16 @@
+.second-screen {
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: rem(20);
+    height: 100%;
+    width: 100%;
+  }
+
+  &__block {
+    height: 100%;
+    width: rem(950);
+  }
+}

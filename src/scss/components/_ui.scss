@@ -1,0 +1,27 @@
+.heading {
+  color: white;
+  font-size: rem(28);
+  font-family: sans-serif;
+  line-height: normal;
+  margin-bottom: rem(20);
+}
+
+.description {
+  color: white;
+  font-size: rem(22);
+  font-family: sans-serif;
+  line-height: normal;
+}
+
+.card {
+  padding: rem(50) rem(30);
+  border-radius: rem(50);
+  // background: #FF416C;
+  // /* fallback for old browsers */
+  // background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
+  // /* Chrome 10-25, Safari 5.1-6 */
+  // background: linear-gradient(to right, #FF4B2B, #FF416C);
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid white;
+}

@@ -24,7 +24,7 @@ export default function threeInit() {
         start: 0,
         end: globalHeight * 3, // Весь промежуток от 0 до второго экрана
         scrub: true,
-        markers: true,
+        // markers: true,
       },
       keyframes: [
         { x: 6, y: -1, duration: 3 }, // Движение для screen-1
@@ -40,7 +40,7 @@ export default function threeInit() {
         start: 0,
         end: globalHeight * 3, // Весь промежуток от 0 до второго экрана
         scrub: true,
-        markers: true,
+        // markers: true,
       },
       keyframes: [
         { y: -Math.PI / 2, x: -Math.PI / 40, duration: 1 }, // Вращение для screen-1
@@ -53,7 +53,7 @@ export default function threeInit() {
   function three() {
     // 1. Создание сцены
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xffffff);
+    scene.background = null;
     globalScene = scene;
 
     // 2. Создание камеры
@@ -70,7 +70,7 @@ export default function threeInit() {
     globalCamera = camera;
 
     // 3. Создание рендера
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document
       .querySelector("#three-d-container")

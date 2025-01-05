@@ -7,7 +7,7 @@ html {
   font-size: calc(100vw / var(--refRes) * 10);
 
   @media (min-width: 1921px) {
-    font-size: 10px;
+    // font-size: 10px;
   }
 
   @media (max-width: 1024px) {
