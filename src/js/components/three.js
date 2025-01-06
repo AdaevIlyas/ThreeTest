@@ -3,7 +3,13 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+import { disable_scroll, enable_scroll } from "../functions/scroll";
+disable_scroll();
 gsap.registerPlugin(ScrollTrigger);
+
+const loaderBlock = document.querySelector(".loader");
+const loader_num = document.querySelector("#loader_num");
 
 export default function threeInit() {
   let globalScene;
@@ -51,6 +57,8 @@ export default function threeInit() {
   }
 
   function three() {
+    let mixer; // Для управления анимацией
+
     // 1. Создание сцены
     const scene = new THREE.Scene();
     scene.background = null;
@@ -88,12 +96,22 @@ export default function threeInit() {
         // model.rotation.z = 0;
         model.scale.set(0.01, 0.01, 0.01);
 
+        enable_scroll();
+        loaderBlock.classList.remove("active");
         globalModel = model;
         scene.add(model);
         animation();
+
+        // Создаем AnimationMixer
+        mixer = new THREE.AnimationMixer(model);
+
+        // Получаем первую анимацию из файла и запускаем её
+        const action = mixer.clipAction(gltf.animations[0]);
+        action.play();
       },
       (xhr) => {
         console.log(`Загрузка модели: ${(xhr.loaded / xhr.total) * 100}%`);
+        loader_num.textContent = ((xhr.loaded / xhr.total) * 100).toFixed(0);
         console.log(xhr);
       },
       (error) => {
@@ -116,8 +134,16 @@ export default function threeInit() {
     scene.add(hemisphereLight);
 
     // 6. Анимация
+    const clock = new THREE.Clock(); // Для вычисления deltaTime
     function animate() {
       requestAnimationFrame(animate);
+
+      // Обновляем AnimationMixer
+      if (mixer) {
+        const deltaTime = clock.getDelta(); // Время, прошедшее между кадрами
+        mixer.update(deltaTime);
+      }
+
       renderer.render(scene, camera);
     }
     animate();
